@@ -7,73 +7,96 @@
       xmlns:i18n="http://genshi.edgewall.org/i18n"
       py:strip="">
 
-  <div py:def="navigation(category)" id="${category}" class="nav">
-    <ul py:if="chrome.nav[category]">
-      <li py:for="idx, item in  enumerate(chrome.nav[category])"
-          class="${classes(first_last(idx, chrome.nav[category]), active=item.active)}">${item.label}</li>
-    </ul>
-  </div>
+    <head py:match="head" py:attrs="select('@*')">
+      ${select('*|comment()|text()')}
+      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/bootstrap.min.css')}" />
+      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/style.css')}" />
+    </head>
 
-  <py:match path="body" once="true" buffer="false"><body>
-    <div id="banner">
-      <div id="header" py:choose="">
-        <a py:when="chrome.logo.src" id="logo" href="${chrome.logo.link or href.wiki('TracIni')+'#header_logo-section'}"><img
-          src="${chrome.logo.src}" alt="${chrome.logo.alt}"
-          height="${chrome.logo.height or None}" width="${chrome.logo.width or None}" /></a>
-        <h1 py:otherwise=""><a href="${chrome.logo.link}">${project.name}</a></h1>
-      </div>
-      <form id="search" action="${href.search()}" method="get">
-        <div py:if="not defined('trac_error_rendering') and 'SEARCH_VIEW' in perm">
-          <label for="proj-search">Search:</label>
-          <input type="text" id="proj-search" name="q" size="18" accesskey="f" value="" />
-          <input type="submit" value="${_('Search')}" />
+  <py:match path="body" once="true" buffer="false">
+    <body>
+
+
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header" py:choose="">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a py:when="chrome.logo.src" id="logo" href="${chrome.logo.link or href.wiki('TracIni')+'#header_logo-section'}" class="navbar-brand"><img
+            src="${chrome.logo.src}" alt="${chrome.logo.alt}"
+            height="${chrome.logo.height or None}" width="${chrome.logo.width or None}" /></a>
+            <a py:otherwise="" href="${chrome.logo.link}" class="navbar-brand">${project.name}</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${user_menu_text} <span class="caret"></span></a>
+                <ul py:if="chrome.nav['metanav']" class="dropdown-menu">
+                  <li py:for="idx, item in  enumerate(chrome.nav['metanav'])"
+                  class="${classes(first_last(idx, chrome.nav['metanav']), active=item.active)}">${item.label}</li>
+                </ul>
+              </li>
+            </ul>
+            <form py:if="not defined('trac_error_rendering') and 'SEARCH_VIEW' in perm" class="navbar-form navbar-left" action="${href.search()}" method="get">
+              <input type="text" name="q" class="form-control" placeholder="${_('Search')}">
+            </form>
+            <ul py:if="chrome.nav['mainnav']" class="nav navbar-nav navbar-right">
+              <li py:for="idx, item in  enumerate(chrome.nav['mainnav'])"
+                  class="${classes(first_last(idx, chrome.nav['mainnav']), active=item.active)}">${item.label}</li>
+            </ul>
+          </div><!--/.nav-collapse -->
         </div>
-      </form>
-      ${navigation('metanav')}
-    </div>
-    ${navigation('mainnav')}
-
-    <div id="main" class="${classes(uisymbols=req.session.get('ui.use_symbols'),
-                                    uinohelp=req.session.get('ui.hide_help'))}">
-      <xi:include py:if="value_of('resourcepath_template')" href="${resourcepath_template}" />
-
-      <div id="ctxtnav" class="nav">
-        <h2>Context Navigation</h2>
-        <ul py:if="chrome.ctxtnav">
-          <li py:for="i, elm in enumerate(chrome.ctxtnav)"
-              class="${classes(first_last(i, chrome.ctxtnav))}">$elm</li>
-        </ul>
-        <hr />
       </div>
 
-      <div id="warning" py:if="chrome.warnings" class="system-message">
-        <a class="trac-close-msg" href="#" title="Hide this warning"><span>close</span></a>
-        <py:choose test="len(chrome.warnings)">
-          <strong>Warning:</strong>
-          <py:when test="1">${chrome.warnings[0]}</py:when>
-          <py:otherwise><ul><li py:for="warning in chrome.warnings">$warning</li></ul></py:otherwise>
-        </py:choose>
-      </div>
-      <div id="notice" py:if="chrome.notices" class="system-message">
-        <a class="trac-close-msg" href="#" title="Hide this notice"><span>close</span></a>
-        <py:choose test="len(chrome.notices)">
-          <py:when test="1">${chrome.notices[0]}</py:when>
-          <py:otherwise><ul><li py:for="notice in chrome.notices">$notice</li></ul></py:otherwise>
-        </py:choose>
+
+      <div class="container ${classes(uisymbols=req.session.get('ui.use_symbols'),
+                                        uinohelp=req.session.get('ui.hide_help'))}">
+          <div class="page-header">
+            <xi:include py:if="value_of('resourcepath_template')" href="${resourcepath_template}" />
+            <ul py:if="chrome.ctxtnav" class="nav navbar-right">
+              <li py:for="i, elm in enumerate(chrome.ctxtnav)"
+                  class="${classes(first_last(i, chrome.ctxtnav))}">$elm</li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+
+          <div py:if="chrome.warnings" class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <py:choose test="len(chrome.warnings)">
+              <strong>Warning:</strong>
+              <py:when test="1">${chrome.warnings[0]}</py:when>
+              <py:otherwise><ul><li py:for="warning in chrome.warnings">$warning</li></ul></py:otherwise>
+            </py:choose>
+          </div>
+          <div py:if="chrome.notices" class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <py:choose test="len(chrome.notices)">
+              <py:when test="1">${chrome.notices[0]}</py:when>
+              <py:otherwise><ul><li py:for="notice in chrome.notices">$notice</li></ul></py:otherwise>
+            </py:choose>
+          </div>
+
+          ${select('*|text()|comment()')}
       </div>
 
-      ${select('*|text()|comment()')}
-    </div>
 
-    <div id="footer" xml:lang="en"><hr/>
-      <a id="tracpowered" href="http://trac.edgewall.org/"><img
-        src="${chrome.htdocs_location}trac_logo_mini.png" height="30"
-        width="107" alt="Trac Powered"/></a>
-      <p class="left" i18n:msg="version">
-        Powered by <a href="${href.about()}"><strong>Trac ${trac.version}</strong></a><br />
-        By <a href="http://www.edgewall.org/">Edgewall Software</a>.
-      </p>
-      <p class="right">${chrome.footer}</p>
-    </div>
-  </body></py:match>
+      <div class="footer" xml:lang="en">
+        <div class="container">
+          <p class="text-muted pull-left" i18n:msg="version">Powered by <a href="${href.about()}"><strong>Trac ${trac.version}</strong></a> By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
+          <p class="text-muted pull-right">${chrome.footer}</p>
+        </div>
+      </div>
+
+
+    <!-- Put script at the end for faster loading. -->
+    <script src="${href.chrome('site/js/jquery.min.js')}"></script>
+    <script src="${href.chrome('site/js/bootstrap.min.js')}"></script>
+
+    </body>
+  </py:match>
 </html>

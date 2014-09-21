@@ -3,21 +3,32 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:py="http://genshi.edgewall.org/"
-      xmlns:xi="http://www.w3.org/2001/XInclude">
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      id="de-index">
   <head>
-    <title>Available Projects</title>
+      <title>Available Projects</title>
+      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/bootstrap.min.css')}" />
+      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/style.css')}" />
   </head>
-
   <body>
-    <h1>Available Projects</h1>
-    <ul>
-      <li py:for="project in projects" py:choose="">
-        <a py:when="'href' in project" href="$project.href"
-           title="$project.description">$project.name</a>
-        <py:otherwise>
-          <small>$project.name: <em>Error</em> <br /> ($project.description)</small>
-        </py:otherwise>
-      </li>
-    </ul>
+
+      <div class="col-md-3 col-xs-6 left-col">
+        <div class="page-header">
+          <h2>Available Projects</h2>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item" py:for="project in projects" py:choose="">
+            <a py:when="'href' in project" href="$project.href"
+               title="$project.description">$project.name</a>
+            <py:otherwise>
+              <small>$project.name: <em>Error</em> <br /> ($project.description)</small>
+            </py:otherwise>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-9 col-xs-6 right-col">
+        <h1 class="logo">WE ARE DE Ltd</h1>
+      </div>
+      
   </body>
 </html>
