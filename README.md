@@ -1,4 +1,4 @@
 DEtrac
 ======
 
-Attempt at modernizing trac interface using latest bootstrap
+Attempt at modernizing trac interface using latest bootstrap.
