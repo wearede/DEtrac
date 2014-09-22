@@ -23,7 +23,7 @@
         View changes from <input class="form-control" type="text" id="fromdate" size="10" name="from" value="${format_date(fromdate)}" />
         and <input class="form-control" type="text" size="3" name="daysback" value="$daysback" /> days back
         done by <input class="form-control" type="text" size="16" name="authors" value="$authors" />
-        <py:for="filter in filters"><input type="checkbox" name="${filter.name}" checked="${filter.enabled or None}"/> ${filter.label}</py:for>
+        <py:for each="filter in filters"><input type="checkbox" name="${filter.name}" checked="${filter.enabled or None}"/> ${filter.label}</py:for>
         <button type="submit" name="update" class="btn btn-default">${_('Update')}</button>
       </form>
 
