@@ -1,0 +1,54 @@
+#!/bin/bash
+
+read -r -p "This script is potentially dangerous and has only been tested on 1 ubuntu 14.04 server, continue? [y/N] " response
+
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+then
+
+	# sync files
+	# src: install dir
+	# des: /usr/share/pyshared/trac/htdocs/
+	# desL /usr/share/pyshared/trac/templates/
+	rsync -aP htdocs/* /usr/share/pyshared/trac/htdocs/
+	rsync -aP templates/* /usr/share/pyshared/trac/templates/
+
+	echo 'DEtrac theme sync [ok]'
+
+	# htdocs
+	# sync symlinks
+	# src: /usr/share/pyshared/trac/htdocs/
+	# des: /usr/lib/python2.7/dist-packages/trac/htdocs
+	rm -r /usr/lib/python2.7/dist-packages/trac/htdocs
+	ln -s /usr/share/pyshared/trac/htdocs/ /usr/lib/python2.7/dist-packages/trac/htdocs
+
+	echo 'htdocs symlink created at /usr/lib/python2.7/dist-packages/trac'
+
+	# templates
+	# sync symlinks
+	# src: /usr/share/pyshared/trac/templates/
+	# des: /usr/lib/python2.7/dist-packages/trac/templates
+	rm -r /usr/lib/python2.7/dist-packages/trac/templates
+	ln -s /usr/share/pyshared/trac/templates/ /usr/lib/python2.7/dist-packages/trac/templates
+
+	echo 'templates symlink created at /usr/lib/python2.7/dist-packages/trac'
+	echo 'install complete [ok]'
+
+	echo 'edit: /usr/share/pyshared/trac/web/chrome.py look for trac.css and comment it out'
+	echo 'edit: /usr/share/pyshared/trac/wiki/web_ui.py look for wiki.css and comment it out'
+	
+	read -r -p "restart apache? [y/N] " response
+	
+	if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
+	then
+		service apache2 restart
+	else
+		echo 'you should restart apache for theme to take effect'
+	fi
+
+	echo 'all [OK]'
+
+else
+
+	echo 'bye :)'
+
+fi

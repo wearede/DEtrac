@@ -7,8 +7,8 @@
       id="de-index">
   <head>
       <title>Available Projects</title>
-      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/bootstrap.min.css')}" />
-      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/style.css')}" />
+      <link rel="stylesheet" type="text/css" href="/knowledgebase/chrome/common/css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="/knowledgebase/chrome/common/css/style.css" />
   </head>
   <body>
 
@@ -16,15 +16,12 @@
         <div class="page-header">
           <h2>Available Projects</h2>
         </div>
-        <ul class="list-group">
-          <li class="list-group-item" py:for="project in projects" py:choose="">
-            <a py:when="'href' in project" href="$project.href"
-               title="$project.description">$project.name</a>
-            <py:otherwise>
-              <small>$project.name: <em>Error</em> <br /> ($project.description)</small>
-            </py:otherwise>
-          </li>
-        </ul>
+        <div class="list-group">
+          <a class="list-group-item" py:for="project in projects" href="$project.href" title="$project.description">
+            <h4 class="list-group-item-heading">$project.name</h4>
+            <p class="list-group-item-text">$project.description</p>
+          </a>
+        </div>
       </div>
       <div class="col-md-9 col-xs-6 right-col">
         <h1 class="logo">WE ARE DE Ltd</h1>

@@ -12,16 +12,15 @@
   </head>
 
   <body>
-    <div id="content" class="ticket">
-      <h1 i18n:msg="name">Change History for <a href="${url or url_of(resource)}">${name or name_of(resource)}</a></h1>
+      <div class="page-header"><h1 i18n:msg="name">Change History for <a href="${url or url_of(resource)}">${name or name_of(resource)}</a></h1></div>
 
-      <form py:if="history" class="printableform" method="get" action="">
-        <div class="buttons">
+      <form py:if="history" class="panel panel-default" method="get" action="">
+        <div class="panel-heading">
           <input type="hidden" name="action" value="${diff_action or 'diff'}" />
           <input py:for="k, v in diff_args or []" type="hidden" name="$k" value="$v"/>
-          <input type="submit" value="${_('View changes')}" />
+          <button type="submit" class="btn btn-default">${_('View changes')}</button>
         </div>
-        <table id="fieldhist" class="listing" summary="Change history">
+        <table class="table" summary="Change history">
           <thead>
             <tr>
               <th class="diff"></th>
@@ -51,11 +50,8 @@
           </tbody>
         </table>
         <py:if test="len(history) &gt; 10">
-          <div class="buttons">
-            <input type="submit" value="${_('View changes')}" />
-          </div>
+          <div class="panel-footer"><button type="submit" class="btn btn-default">${_('View changes')}</button></div>
         </py:if>
       </form>
-    </div>
   </body>
 </html>

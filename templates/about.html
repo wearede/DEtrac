@@ -8,7 +8,6 @@
   <xi:include href="layout.html" />
   <head>
     <title>About Trac</title>
-    <link rel="stylesheet" type="text/css" href="${chrome.htdocs_location}css/about.css" />
     <script type="text/javascript">
       //<![CDATA[
       jQuery(document).ready(function ($) {
@@ -19,14 +18,8 @@
   </head>
 
   <body>
-    <div id="content" class="about">
 
-      <a href="http://trac.edgewall.org/"
-        style="border: none; float: right; margin-left: 2em">
-        <img style="display: block" src="${chrome.htdocs_location}trac_banner.png"
-          alt="Trac: Integrated SCM &amp; Project Management"/>
-      </a>
-      <h1>About Trac</h1>
+      <div class="page-header"><h1>About Trac</h1></div>
       <p>Trac is a web-based software project management and bug/issue
         tracking system emphasizing ease of use and low ceremony.
         It provides an integrated Wiki, an interface to version control
@@ -50,9 +43,9 @@
       <py:if test="systeminfo or plugins or config">
         <hr />
 
-        <div py:if="systeminfo" id="systeminfo">
-          <h2>System Information</h2>
-          <table class="listing">
+        <div py:if="systeminfo" class="panel panel-default">
+          <div class="panel-heading"><h4>System Information</h4></div>
+          <table class="table">
             <thead><tr><th>Package</th><th>Version</th></tr></thead>
             <tbody>
               <tr py:for="name, value in systeminfo">
@@ -63,9 +56,9 @@
           </table>
         </div>
 
-        <div py:if="plugins" id="plugins">
-          <h2>Installed Plugins</h2>
-          <table class="listing">
+        <div py:if="plugins" class="panel panel-default">
+          <div class="panel-heading"><h4>Installed Plugins</h4></div>
+          <table class="table">
             <thead><tr><th>Name</th><th>Version</th><th>Location</th></tr></thead>
             <tbody>
               <tr py:for="plugin in plugins"
@@ -81,9 +74,9 @@
           </table>
         </div>
 
-        <div py:if="config" id="config">
-          <h2>Configuration</h2>
-          <table class="listing">
+        <div py:if="config" class="panel panel-default">
+          <div class="panel-heading"><h4>Configuration</h4></div>
+          <table class="table">
             <thead>
               <tr>
                 <th class="section">Section</th>
@@ -106,6 +99,5 @@
         </div>
       </py:if>
 
-    </div>
   </body>
 </html>

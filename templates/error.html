@@ -56,30 +56,27 @@
 
   <py:def function="create_ticket(url=None)">
     <input type="hidden" name="reporter" value="${get_reporter_id(req)}" />
-    <input py:if="url == trac.homepage.strip('/')" type="hidden" name="version"
-           value="${trac.version.split('-', 1)[0] if 'dev' in trac.version else trac.version}" />
+    <input py:if="url == trac.homepage.strip('/')" type="hidden" name="version" value="${trac.version.split('-', 1)[0] if 'dev' in trac.version else trac.version}" />
     <input type="hidden" name="summary" value="$message" />
-    <textarea name="description" rows="3" cols="10">
-${description_en if url else description}</textarea>
-    <span class="inlinebuttons">
-      <input type="submit" name="create" value="${_('Create')}" />
-    </span>
+    <textarea name="description" rows="3" class="form-control">${description_en if url else description}</textarea>
+    <button type="submit" name="create" class="btn btn-default">${_('Create')}</button>
   </py:def>
 
   <body>
-    <div id="content" class="error">
       <py:choose test="type">
         <py:when test="'TracError'">
-          <h1>$title</h1>
-          <py:choose test="">
-            <p py:when="istext(message)" class="message">$message</p>
-            <py:otherwise>$message</py:otherwise>
-          </py:choose>
+          <div class="alert alert-danger" role="alert">
+            <h1>$title</h1>
+            <py:choose test="">
+              <p py:when="istext(message)" class="message">$message</p>
+              <py:otherwise>$message</py:otherwise>
+            </py:choose>
+          </div>
         </py:when>
         <py:when test="'internal'">
-          <h1>Oops&hellip;</h1>
-          <div class="message">
-            <strong>Trac detected an internal error:</strong>
+          <div class="alert alert-danger" role="alert">
+            <h1>Oops&hellip;</h1>
+            <p><strong>Trac detected an internal error:</strong></p>
             <pre>$message</pre>
           </div>
           <py:choose>
@@ -98,7 +95,7 @@ ${description_en if url else description}</textarea>
               <pre>${req.method}: ${req.path_info}</pre>
             </py:when>
             <py:otherwise>
-              <form class="newticket" method="get" action="${project.admin_href.newticket()}#">
+              <form method="get" action="${project.admin_href.newticket()}#">
                 <p>This is probably a local installation issue.
                   <py:if test="project.admin_href and project.admin_trac_url != '.'"><i18n:msg params="create">
                     You should ${create_ticket()} a ticket at the admin Trac to report
@@ -106,6 +103,7 @@ ${description_en if url else description}</textarea>
                   </i18n:msg></py:if>
                 </p>
               </form>
+
               <h2>Found a bug in Trac?</h2>
               <p>If you think this should work and you can reproduce the problem,
               you should consider creating a bug report.</p>
@@ -201,6 +199,5 @@ ${description_en if url else description}</textarea>
       <p>
         <a href="${href.wiki('TracGuide')}">TracGuide</a> &mdash; The Trac User and Administration Guide
       </p>
-    </div>
   </body>
 </html>

@@ -9,8 +9,8 @@
 
     <head py:match="head" py:attrs="select('@*')">
       ${select('*|comment()|text()')}
-      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/bootstrap.min.css')}" />
-      <link rel="stylesheet" type="text/css" href="${href.chrome('site/css/style.css')}" />
+      <link rel="stylesheet" type="text/css" href="${chrome.htdocs_location}css/bootstrap.min.css" />
+      <link rel="stylesheet" type="text/css" href="${chrome.htdocs_location}css/style.css" />
     </head>
 
   <py:match path="body" once="true" buffer="false">
@@ -35,16 +35,14 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${user_menu_text} <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${chrome['nav']['metanav'][0]['label']} <span class="caret"></span></a>
+                <?python chrome['nav']['metanav'].pop(0) ?>
                 <ul py:if="chrome.nav['metanav']" class="dropdown-menu">
                   <li py:for="idx, item in  enumerate(chrome.nav['metanav'])"
                   class="${classes(first_last(idx, chrome.nav['metanav']), active=item.active)}">${item.label}</li>
                 </ul>
               </li>
             </ul>
-            <form py:if="not defined('trac_error_rendering') and 'SEARCH_VIEW' in perm" class="navbar-form navbar-left" action="${href.search()}" method="get">
-              <input type="text" name="q" class="form-control" placeholder="${_('Search')}">
-            </form>
             <ul py:if="chrome.nav['mainnav']" class="nav navbar-nav navbar-right">
               <li py:for="idx, item in  enumerate(chrome.nav['mainnav'])"
                   class="${classes(first_last(idx, chrome.nav['mainnav']), active=item.active)}">${item.label}</li>
@@ -58,7 +56,7 @@
                                         uinohelp=req.session.get('ui.hide_help'))}">
           <div class="page-header">
             <xi:include py:if="value_of('resourcepath_template')" href="${resourcepath_template}" />
-            <ul py:if="chrome.ctxtnav" class="nav navbar-right">
+            <ul py:if="chrome.ctxtnav" class="nav navbar-nav navbar-right">
               <li py:for="i, elm in enumerate(chrome.ctxtnav)"
                   class="${classes(first_last(i, chrome.ctxtnav))}">$elm</li>
             </ul>
@@ -94,8 +92,7 @@
 
 
     <!-- Put script at the end for faster loading. -->
-    <script src="${href.chrome('site/js/jquery.min.js')}"></script>
-    <script src="${href.chrome('site/js/bootstrap.min.js')}"></script>
+    <script src="${chrome.htdocs_location}js/bootstrap.min.js"></script>
 
     </body>
   </py:match>
