@@ -33,8 +33,9 @@ then
 	echo 'templates symlink created at /usr/lib/python2.7/dist-packages/trac'
 	echo 'install complete [ok]'
 
-	echo 'edit: /usr/share/pyshared/trac/web/chrome.py look for trac.css and comment it out'
-	echo 'edit: /usr/share/pyshared/trac/wiki/web_ui.py look for wiki.css and comment it out'
+		echo 'edit: /usr/share/pyshared/trac/web/chrome.py look for trac.css and comment it out'
+		echo 'edit: /usr/share/pyshared/trac/wiki/web_ui.py look for wiki.css and comment it out'
+		echo 'edit: /usr/share/pyshared/trac/timeline/web_ui.py look for timeline.css and comment it out'
 	
 	read -r -p "restart apache? [y/N] " response
 	

@@ -133,51 +133,56 @@
                 </form>
               </div>
               <py:if test="traceback">
-                <h2>Python Traceback</h2>
-                <div id="traceback">
-                  Most recent call last:
-                  <ul py:if="frames" style="display: none">
-                    <li class="frame" py:for="idx, frame in enumerate(frames)">
-                      <a href="#frame${idx}" id="frame${idx}"><span i18n:msg="file, line, function" py:strip="">
-                        <span class="file">File "${frame.filename}",
-                        line <b>${frame.lineno + 1}</b>, in</span>
-                        <var>${frame.function}</var></span>
-                      </a>
-                      <div py:if="frame.line" class="source" style="display: none">
-                        <h3>Code fragment:</h3>
-                        <table class="code">
-                          <thead><tr><th class="lineno">Line</th><th class="content"></th></tr></thead>
-                          <tbody>
-                            <tr py:for="i, line in enumerate(frame.lines_before + [frame.line] + frame.lines_after)"
-                                class="${'current' if i == len(frame.lines_before) else None}">
-                              <th>${frame.lineno + i + 1 - len(frame.lines_before)}</th><td>${line or u'\xa0'}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div py:if="frame.vars" class="vars" style="display: none">
-                        <h3>Local variables:</h3>
-                        <table class="listing">
-                          <thead><tr><th>Name</th><th>Value</th></tr></thead>
-                          <tbody>
-                            <tr py:for="idx, (name, value) in enumerate(sorted(frame.vars.items()))"
-                                class="${'odd' if idx % 2 else None}">
-                              <th scope="row"><var>$name</var></th>
-                              <td><code>${shorten_line(repr(value))}</code></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </li>
-                  </ul>
-                  <pre><py:for each="frame in frames"><i18n:msg params="file, line, function">File "${frame.filename}", line ${frame.lineno + 1}, in ${frame.function}</i18n:msg><py:if test="frame.line">
-  ${frame.line.lstrip()}
-</py:if></py:for><py:if test="not frames">${traceback}</py:if></pre>
-                  <p style="display: none"><input type="button" id="tbtoggle" value="${_('Switch to plain text view')}" /></p>
+                <div class="panel panel-warning">
+                  <div class="panel-heading"><h2>Python Traceback</h2></div>
+                  <div id="traceback" class="panel-body">
+                    Most recent call last:
+                    <ul py:if="frames" style="display: none">
+                      <li class="frame" py:for="idx, frame in enumerate(frames)">
+                        <a href="#frame${idx}" id="frame${idx}"><span i18n:msg="file, line, function" py:strip="">
+                          <span class="file">File "${frame.filename}",
+                          line <b>${frame.lineno + 1}</b>, in</span>
+                          <var>${frame.function}</var></span>
+                        </a>
+                        <div py:if="frame.line" class="source" style="display: none">
+                          <h3>Code fragment:</h3>
+                          <table class="code">
+                            <thead><tr><th class="lineno">Line</th><th class="content"></th></tr></thead>
+                            <tbody>
+                              <tr py:for="i, line in enumerate(frame.lines_before + [frame.line] + frame.lines_after)"
+                                  class="${'current' if i == len(frame.lines_before) else None}">
+                                <th>${frame.lineno + i + 1 - len(frame.lines_before)}</th><td>${line or u'\xa0'}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div py:if="frame.vars" class="vars" style="display: none">
+                          <h3>Local variables:</h3>
+                          <table class="listing">
+                            <thead><tr><th>Name</th><th>Value</th></tr></thead>
+                            <tbody>
+                              <tr py:for="idx, (name, value) in enumerate(sorted(frame.vars.items()))"
+                                  class="${'odd' if idx % 2 else None}">
+                                <th scope="row"><var>$name</var></th>
+                                <td><code>${shorten_line(repr(value))}</code></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </li>
+                    </ul>
+                    <pre><py:for each="frame in frames"><i18n:msg params="file, line, function">File "${frame.filename}", line ${frame.lineno + 1}, in ${frame.function}</i18n:msg><py:if test="frame.line">
+    ${frame.line.lstrip()}
+  </py:if></py:for><py:if test="not frames">${traceback}</py:if></pre>
+                  </div>
+                  <div class="panel-footer">
+                    <p style="display: none"><button type="button" id="tbtoggle">${_('Switch to plain text view')}</button></p>
+                  </div>
                 </div>
               </py:if>
+
               <h2>System Information:</h2>
-              <table class="listing" id="systeminfo">
+              <table class="table" id="systeminfo">
                 <tr py:for="name, value in get_systeminfo()">
                   <th>$name</th>
                   <td>$value</td>
@@ -185,7 +190,7 @@
               </table>
               <py:if test="plugins">
                 <h2>Enabled Plugins:</h2>
-                <table class="listing" id="plugins">
+                <table class="table" id="plugins">
                   <tr py:for="plugin in plugins">
                     <th py:with="url = plugin.info.home_page or plugin.info.author_email and 'mailto:' + plugin.info.author_email">
                       <a py:strip="not url" href="$url">$plugin.name</a>
