@@ -29,13 +29,13 @@
 
       <py:for each="day, events in groupby(events, key=lambda e: format_date(e.date))">
         <div class="panel panel-default">
-          <div class="panel-heading"><h4>${day}: ${_("Today") if day == today else _("Yesterday") if day == yesterday else None}</h4></div>
+          <div class="panel-heading">${day}: ${_("Today") if day == today else _("Yesterday") if day == yesterday else None}</div>
           <div class="panel-body">
-            <dl py:for="unread, events in groupby(events, key=lambda e: lastvisit and lastvisit &lt; e.dateuid)"
-                class="${'unread' if unread else None} dl-horizontal">
+            <ul py:for="unread, events in groupby(events, key=lambda e: lastvisit and lastvisit &lt; e.dateuid)"
+                class="${'unread' if unread else None} list-group">
               <py:for each="event in events"
                 py:with="highlight = precision and precisedate and timedelta(0) &lt;= (event.date - precisedate) &lt; precision">
-                <dt class="${classes(event.kind, highlight=highlight, unread=unread)} pull-left">
+                <li class="${classes(event.kind, highlight=highlight, unread=unread)} list-group-item">
                   <a href="${event.render('url', context)}" py:choose="">
                     <py:when test="event.author"><i18n:msg params="time, title, author">
                       <span class="author">${format_author(event.author)}</span>: 
@@ -45,12 +45,10 @@
                       <span class="time">${format_time(event.date, 'short')}</span> ${event.render('title', context)}
                     </py:otherwise>
                   </a>
-                </dt>
-                <dd class="${classes(event.kind, highlight=highlight)}">
-                  ${event.render('description', context)}
-                </dd>
+                  <span class="${classes(event.kind, highlight=highlight)} badge">${event.render('description', context)}</span>
+                </li>
               </py:for>
-            </dl>
+            </ul>
           </div>
         </div>
       </py:for>
