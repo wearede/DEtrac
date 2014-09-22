@@ -32,7 +32,7 @@
           <div class="panel-heading"><h4>${day}: ${_("Today") if day == today else _("Yesterday") if day == yesterday else None}</h4></div>
           <div class="panel-body">
             <dl py:for="unread, events in groupby(events, key=lambda e: lastvisit and lastvisit &lt; e.dateuid)"
-                class="${'unread' if unread else None}">
+                class="${'unread' if unread else None} dl-horizontal">
               <py:for each="event in events"
                 py:with="highlight = precision and precisedate and timedelta(0) &lt;= (event.date - precisedate) &lt; precision">
                 <dt class="${classes(event.kind, highlight=highlight, unread=unread)} pull-left">
