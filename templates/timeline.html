@@ -30,7 +30,6 @@
       <py:for each="day, events in groupby(events, key=lambda e: format_date(e.date))">
         <div class="panel panel-default">
           <div class="panel-heading">${day}: ${_("Today") if day == today else _("Yesterday") if day == yesterday else None}</div>
-          <div class="panel-body">
             <ul py:for="unread, events in groupby(events, key=lambda e: lastvisit and lastvisit &lt; e.dateuid)"
                 class="${'unread' if unread else None} list-group">
               <py:for each="event in events"
@@ -49,7 +48,6 @@
                 </li>
               </py:for>
             </ul>
-          </div>
         </div>
       </py:for>
 
