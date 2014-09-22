@@ -103,32 +103,35 @@
                   </i18n:msg></py:if>
                 </p>
               </form>
-
-              <h2>Found a bug in Trac?</h2>
-              <p>If you think this should work and you can reproduce the problem,
-              you should consider creating a bug report.</p>
-              <p py:if="faulty_plugins" py:choose="len(faulty_plugins)">
-                <py:when test="1"><i18n:msg params="name">
-                  Note that the ${faulty_plugins[0].name} plugin seems to be involved.
-                </i18n:msg></py:when>
-                <py:otherwise>
-                  Note that the following plugins seem to be involved:
-                  ${', '.join([p.name for p in faulty_plugins])}
-                </py:otherwise>
-                <strong>Please report this issue to the plugin maintainer.</strong>
-              </p>
-              <p i18n:msg="" py:with="q = quote_plus(message[:80])">Before you do that, though, please first try
-                <strong><a href="${tracker}/search?ticket=yes&amp;noquickjump=1&amp;q=$q">searching</a>
-                for similar issues</strong>, as it is quite likely that this problem
-                has been reported before. For questions about installation
-                and configuration of Trac or its plugins, please try the
-                <a href="${trac.homepage}wiki/MailingList">mailing list</a>
-                instead of creating a ticket.
-              </p>
-              <form class="newticket" method="get" action="${tracker}/newticket">
-                <p i18n:msg="create">Otherwise, please ${create_ticket(tracker)} a new bug report
-                describing the problem and explain how to reproduce it.</p>
-              </form>
+              <div class="panel panel-warning">
+                <div class="panel-heading"><h2>Found a bug in Trac?</h2></div>
+                <div class="panel-body">
+                  <p>If you think this should work and you can reproduce the problem,
+                  you should consider creating a bug report.</p>
+                  <p py:if="faulty_plugins" py:choose="len(faulty_plugins)">
+                    <py:when test="1"><i18n:msg params="name">
+                      Note that the ${faulty_plugins[0].name} plugin seems to be involved.
+                    </i18n:msg></py:when>
+                    <py:otherwise>
+                      Note that the following plugins seem to be involved:
+                      ${', '.join([p.name for p in faulty_plugins])}
+                    </py:otherwise>
+                    <strong>Please report this issue to the plugin maintainer.</strong>
+                  </p>
+                  <p i18n:msg="" py:with="q = quote_plus(message[:80])">Before you do that, though, please first try
+                    <strong><a href="${tracker}/search?ticket=yes&amp;noquickjump=1&amp;q=$q">searching</a>
+                    for similar issues</strong>, as it is quite likely that this problem
+                    has been reported before. For questions about installation
+                    and configuration of Trac or its plugins, please try the
+                    <a href="${trac.homepage}wiki/MailingList">mailing list</a>
+                    instead of creating a ticket.
+                  </p>
+                </div>
+                <form class="panel-footer" method="get" action="${tracker}/newticket">
+                  <p i18n:msg="create">Otherwise, please ${create_ticket(tracker)} a new bug report
+                  describing the problem and explain how to reproduce it.</p>
+                </form>
+              </div>
               <py:if test="traceback">
                 <h2>Python Traceback</h2>
                 <div id="traceback">
