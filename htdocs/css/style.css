@@ -60,6 +60,9 @@ body {
 /* Timeline
 -------------------------------------------------- */
 
+.wiki.label-info, .wiki.label-info a {
+	color: #fff;
+}
 
 
 
