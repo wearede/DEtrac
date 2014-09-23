@@ -10,8 +10,8 @@ Arguments:
       xmlns:xi="http://www.w3.org/2001/XInclude"
       xmlns:i18n="http://genshi.edgewall.org/i18n"
       py:if="alist.can_create" method="get" action="${alist.attach_href}" id="attachfile">
-  <div>
+  <p>
     <input type="hidden" name="action" value="new" />
     <button type="submit" name="attachfilebutton" class="btn btn-default btn-block">${value_of('add_button_title', None) or _('Attach file')}</button>
-  </div>
+  </p>
 </form>

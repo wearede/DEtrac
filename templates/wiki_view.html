@@ -70,7 +70,7 @@
           <div class="well">
             <py:if test="modify_perm">
               <form method="get" action="${href.wiki(page.name)}" id="modifypage">
-                <div>
+                <p>
                   <input type="hidden" name="action" value="edit" />
                   <py:choose>
                     <py:when test="is_not_latest">
@@ -93,26 +93,28 @@
                       </div>
                     </py:otherwise>
                   </py:choose>
-                </div>
+                </p>
               </form>
               <py:if test="page.exists">
                 <xi:include href="attach_file_form.html" py:with="alist = attachments"/>
               </py:if>
             </py:if>
             <form method="get" action="${href.wiki(page.name)}" id="rename" py:if="page.exists and rename_perm">
-              <div>
+              <p>
                 <input type="hidden" name="action" value="rename" />
                 <button type="submit" class="btn btn-default btn-block">${_('Rename page')}</button>
-              </div>
+              </p>
             </form>
             <form method="get" action="${href.wiki(page.name)}" py:if="page.exists and delete_perm">
-              <div id="delete">
-                <input type="hidden" name="action" value="delete" />
-                <input type="hidden" name="version" value="$page.version" />
+              <div id="delete" class="btn-group btn-group-justified">
                 <py:if test="page.version == latest_version">
-                  <button type="submit" name="delete_version" class="btn btn-danger btn-block">${_('Delete this version')}</button>
+                  <div class="btn-group"><button type="submit" name="delete_version" class="btn btn-danger btn-xs">${_('Delete this version')}</button></div>
                 </py:if>
-                <button type="submit" class="btn btn-danger btn-block">${_('Delete page')}</button>
+                <div class="btn-group">
+                  <input type="hidden" name="action" value="delete" />
+                  <input type="hidden" name="version" value="$page.version" />
+                  <button type="submit" class="btn btn-danger btn-xs">${_('Delete page')}</button>
+                </div>
               </div>
             </form>
           </div>
@@ -134,7 +136,7 @@
                  _('Version %(version)s by %(author)s',
                    version=page.version, author=format_author(page.author)))
           ?>
-          <p py:if="not version" class="alert alert-warning">
+          <p py:if="not version" class="alert alert-warning text-center">
             <span i18n:msg="reldate">
               <a href="${href.wiki(page.name, action='diff', version=page.version)}"
                  title="$last_modification">Last modified</a> ${pretty_dateinfo(page.time)}
