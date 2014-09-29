@@ -18,6 +18,7 @@
         </div>
         <div class="list-group">
           <py:for each="project in projects">
+           <py:choose test="">
             <py:when test="'href' in project">
               <a class="list-group-item" href="$project.href" title="$project.description">
                 <h4 class="list-group-item-heading">$project.name</h4>
@@ -31,6 +32,7 @@
                 <span class="badge"><em>Error</em></span>
               </div>
             </py:otherwise>
+           </py:choose>
           </py:for>
         </div>
       </div>
