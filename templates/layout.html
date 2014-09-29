@@ -65,7 +65,7 @@
       ${script.prefix}<script type="${script.type}" charset="${script.charset}" src="${script.href}"></script>${script.suffix}
     </py:for>
 
-    <div class="panel panel-info" py:if="'alternate' in chrome.links">
+    <div id="altlinks" class="panel panel-info" py:if="'alternate' in chrome.links">
       <div class="panel-heading">Download in other formats:</div>
       <div class="panel-body">
       <ul>

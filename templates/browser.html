@@ -47,6 +47,7 @@
   </head>
 
   <body>
+    <div id="content" class="browser">
 
       <py:if test="dir or file">
         <h1 py:with="repo_index=repo and repo.repositories;
@@ -218,9 +219,10 @@
         </form>
       </div>
 
-      <p i18n:msg="">
+      <p id="help" i18n:msg="">
         <strong>Note:</strong> See <a href="${href.wiki('TracBrowser')}">TracBrowser</a> for help on using the repository browser.
       </p>
 
+    </div>
   </body>
 </html>

@@ -18,7 +18,7 @@
 
 
       <!-- Fixed navbar -->
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div id="header" class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header" py:choose="">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -63,7 +63,7 @@
             <div class="clearfix"></div>
           </div>
 
-          <div py:if="chrome.warnings" class="alert alert-danger" role="alert">
+          <div id="warning" py:if="chrome.warnings" class="alert alert-danger system-message" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <py:choose test="len(chrome.warnings)">
               <strong>Warning:</strong>
@@ -71,7 +71,7 @@
               <py:otherwise><ul><li py:for="warning in chrome.warnings">$warning</li></ul></py:otherwise>
             </py:choose>
           </div>
-          <div py:if="chrome.notices" class="alert alert-warning" role="alert">
+          <div id="notice" py:if="chrome.notices" class="alert alert-warning system-message" role="alert">
             <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <py:choose test="len(chrome.notices)">
               <py:when test="1">${chrome.notices[0]}</py:when>
@@ -83,7 +83,7 @@
       </div>
 
 
-      <div class="footer" xml:lang="en">
+      <div id="footer" class="footer" xml:lang="en">
         <div class="container">
           <p class="text-muted pull-left" i18n:msg="version">Powered by <a href="${href.about()}"><strong>Trac ${trac.version}</strong></a> By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
           <p class="text-muted pull-right">${chrome.footer}</p>

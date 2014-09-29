@@ -2,7 +2,8 @@
     xmlns:py="http://genshi.edgewall.org/"
     xmlns:i18n="http://genshi.edgewall.org/i18n"
     xmlns:xi="http://www.w3.org/2001/XInclude"
-    class="breadcrumb navbar-left"
+    id="pagepath"
+    class="breadcrumb noprint navbar-left"
     py:with="parts = page.name.split('/')">
   <li><a title="View WikiStart" href="${req.base_url}">${project.name}</a></li>
   <li><a title="View WikiStart" href="${href.wiki()}">Wiki</a></li>

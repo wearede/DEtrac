@@ -21,6 +21,7 @@
     </script>
   </head>
   <body>
+    <div id="content" class="search">
 
       <div class="page-header"><h1><label for="q">Search</label></h1></div>
       <form id="fullsearch" action="${href.search()}" method="get">
@@ -44,7 +45,7 @@
       <py:if test="results or quickjump">
         <div class="page-header"><h3 py:if="results">Results <span class="label label-info">(${results.displayed_items()})</span></h3></div>
         <xi:include py:with="paginator = results" href="page_index.html" />
-          <div class="list-group">
+          <div class="list-group" id="results">
             <py:if test="quickjump">
               <a href="${quickjump.href}" i18n:msg="name" class="list-group-item">
                 <h4 class="list-group-item-heading">Quickjump to ${quickjump.name}</h4>
@@ -63,13 +64,14 @@
         <xi:include py:with="paginator = results" href="page_index.html" />
       </py:if>
 
-      <div class="alert alert-warning" role="alert" py:if="query and not (results or quickjump)">
+      <div id="notfound" class="alert alert-warning" role="alert" py:if="query and not (results or quickjump)">
         No matches found.
       </div>
 
-      <p i18n:msg="">
+      <p id="help" i18n:msg="">
         <strong>Note:</strong> See <a href="${href.wiki('TracSearch')}">TracSearch</a> for help on searching.
       </p>
 
+    </div>
   </body>
 </html>

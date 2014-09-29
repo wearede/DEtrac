@@ -56,13 +56,15 @@
 
   <py:def function="create_ticket(url=None)">
     <input type="hidden" name="reporter" value="${get_reporter_id(req)}" />
-    <input py:if="url == trac.homepage.strip('/')" type="hidden" name="version" value="${trac.version.split('-', 1)[0] if 'dev' in trac.version else trac.version}" />
+    <input py:if="url == trac.homepage.strip('/')" type="hidden" name="version"
+           value="${trac.version.split('-', 1)[0] if 'dev' in trac.version else trac.version}" />
     <input type="hidden" name="summary" value="$message" />
     <textarea name="description" rows="3" class="form-control">${description_en if url else description}</textarea>
     <button type="submit" name="create" class="btn btn-default">${_('Create')}</button>
   </py:def>
 
   <body>
+    <div id="content" class="error">
       <py:choose test="type">
         <py:when test="'TracError'">
           <div class="alert alert-danger" role="alert">
@@ -95,7 +97,7 @@
               <pre>${req.method}: ${req.path_info}</pre>
             </py:when>
             <py:otherwise>
-              <form method="get" action="${project.admin_href.newticket()}#">
+              <form class="newticket" method="get" action="${project.admin_href.newticket()}#">
                 <p>This is probably a local installation issue.
                   <py:if test="project.admin_href and project.admin_trac_url != '.'"><i18n:msg params="create">
                     You should ${create_ticket()} a ticket at the admin Trac to report
@@ -127,7 +129,7 @@
                     instead of creating a ticket.
                   </p>
                 </div>
-                <form class="panel-footer" method="get" action="${tracker}/newticket">
+                <form class="panel-footer newticket" method="get" action="${tracker}/newticket">
                   <p i18n:msg="create">Otherwise, please ${create_ticket(tracker)} a new bug report
                   describing the problem and explain how to reproduce it.</p>
                 </form>
@@ -214,5 +216,6 @@
       <p>
         <a href="${href.wiki('TracGuide')}">TracGuide</a> &mdash; The Trac User and Administration Guide
       </p>
+    </div>
   </body>
 </html>

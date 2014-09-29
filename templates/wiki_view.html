@@ -17,8 +17,8 @@
           title="${_('Revert page to this version') if is_not_latest else _('Edit this page')}"/>
     <script type="text/javascript">
       jQuery(document).ready(function($) {
-        $("body").find("h1,h2,h3,h4,h5,h6").addAnchor(_("Link to this section"));
-        $("body").find(".wikianchor").each(function() {
+        $("#content").find("h1,h2,h3,h4,h5,h6").addAnchor(_("Link to this section"));
+        $("#content").find(".wikianchor").each(function() {
           $(this).addAnchor(babel.format(_("Link to #%(id)s"), {id: $(this).attr('id')}));
         });
         $(".foldable").enableFolding(true, true);
@@ -27,9 +27,10 @@
   </head>
 
   <body>
+    <div id="content" class="wiki">
 
       <py:if test="version">
-        <table class="table" summary="Revision info">
+        <table id="info" class="table" summary="Revision info">
           <tbody>
             <tr><th scope="row" i18n:msg="version, author, date">
                Version $page.version (modified by ${authorinfo(page.author)}, ${pretty_dateinfo(page.time)})
@@ -44,9 +45,9 @@
 
   <div class="row">
    <div class="col-md-9">
-      <div py:choose="" xml:space="preserve">
+      <div class="wikipage searchable" py:choose="" xml:space="preserve">
         <py:when test="page.exists">
-          <div py:content="wiki_to_html(context, text)" />
+          <div id="wikipage" class="trac-content" py:content="wiki_to_html(context, text)" />
         </py:when>
         <py:otherwise>
           <p i18n:msg="name">The page ${name_of(page.resource)} does not exist. You can create it here.</p>
@@ -67,7 +68,7 @@
       <py:with vars="delete_perm = 'WIKI_DELETE' in perm(page.resource);
                      rename_perm = 'WIKI_RENAME' in perm(page.resource)">
         <py:if test="admin_perm or (not page.readonly and (modify_perm or delete_perm))">
-          <div class="well">
+          <div class="well buttons">
             <py:if test="modify_perm">
               <form method="get" action="${href.wiki(page.name)}" id="modifypage">
                 <p>
@@ -121,7 +122,7 @@
         </py:if>
       </py:with>
 
-      <div py:if="not page.exists and related">
+      <div class="wikipage searchable" py:if="not page.exists and related">
         <p>The following pages have a name similar to this page, and may be related:</p>
         <ul>
           <li py:for="markup in related">${markup}</li>
@@ -148,6 +149,6 @@
    </div>
   </div>
 
-
+   </div>
   </body>
 </html>

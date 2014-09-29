@@ -17,10 +17,21 @@
           <h2>Available Projects</h2>
         </div>
         <div class="list-group">
-          <a class="list-group-item" py:for="project in projects" href="$project.href" title="$project.description">
-            <h4 class="list-group-item-heading">$project.name</h4>
-            <p class="list-group-item-text">$project.description</p>
-          </a>
+          <py:for each="project in projects">
+            <py:when test="'href' in project">
+              <a class="list-group-item" href="$project.href" title="$project.description">
+                <h4 class="list-group-item-heading">$project.name</h4>
+                <p class="list-group-item-text">$project.description</p>
+              </a>
+            </py:when>
+            <py:otherwise>
+              <div class="list-group-item disabled">
+                <h4 class="list-group-item-heading">$project.name</h4>
+                <p class="list-group-item-text">$project.description</p>
+                <span class="badge"><em>Error</em></span>
+              </div>
+            </py:otherwise>
+          </py:for>
         </div>
       </div>
       <div class="col-md-9 col-xs-6 right-col">
