@@ -7,7 +7,7 @@ Author URI: http://weare.de.com/
 Version: 1.0
 */
 
-/* Sticky footer-nav styles
+/* Common
 -------------------------------------------------- */
 html {
   position: relative;
@@ -18,6 +18,8 @@ body {
   margin-bottom: 115px;
   padding-top: 60px;
 }
+#content {margin-bottom: 25px;}
+#help {margin-top: 25px;}
 .footer {
   position: absolute;
   bottom: 0;
@@ -60,12 +62,85 @@ body {
 /* Timeline
 -------------------------------------------------- */
 
-.wiki.label-info, .wiki.label-info a {
+#content.timeline .wiki .label-info,
+#content.timeline .wiki .label-info a {
 	color: #fff;
 }
 
+/* Wiki
+-------------------------------------------------- */
 
 
+/* Versioncontrol
+-------------------------------------------------- */
 
+#content.browser table.dirlist td.name {width: 100%;}
 
+#content.browser table.dirlist tr span.expander,
+#content.browser table.dirlist td.name a,
+#content.browser table.dirlist td.size a,
+#content.browser table.dirlist td.rev a.chgset {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: 300;
+	line-height: 1;
+	top: 1px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+#content.browser table.dirlist tr span.expander:before {content: "\e158";}
+#content.browser table.dirlist tr span.expander:hover {}
+#content.browser table.dirlist tr.expanded span.expander:before {content: "\e159";}
 
+#content.browser table.dirlist td.name a.dir:before {
+	content: "\e117";
+	margin-right: 8px;
+}
+#content.browser table.dirlist .expanded td.name a.dir:before {content: "\e118";}
+#content.browser table.dirlist td.name a.file:before {
+	content: "\e022";
+	margin-right: 8px;
+}
+
+#content.browser table.dirlist a.trac-rawlink:before,
+#content.browser table.dirlist a.trac-ziplink:before {
+	content: "\e025";	
+}
+#content.browser table.dirlist td.size {
+	color: #888;
+	text-align: right;
+	vertical-align: middle;
+	font-size: 85%;
+	white-space: nowrap;
+}
+#content.browser table.dirlist td.size span {margin-right: 5px;}
+
+#content.browser table.dirlist td.rev {
+	text-align: right;
+	vertical-align: middle;
+	font-size: 85%;
+	white-space: nowrap;
+}
+#content.browser table.dirlist td.rev a.chgset:before {content: "\e032";}
+
+#content.browser table.dirlist td.age {
+	vertical-align: middle;
+	font-size: 85%;
+	border-width: 1px 7px 0 0;
+	white-space: nowrap;
+}
+
+#content.browser table.dirlist td.author {
+	font-size: 85%;
+	font-style: italic;
+	font-weight: 700;
+	white-space: nowrap;
+}
+#content.browser table.dirlist td.change {
+	font-size: 85%;
+	color: #888;
+	white-space: nowrap;
+}

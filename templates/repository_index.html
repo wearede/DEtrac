@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:py="http://genshi.edgewall.org/"
     xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
-  <table class="listing dirlist table" id="${repoindex or None}">
+  <table class="listing dirlist table table-striped table-bordered table-hover" id="${repoindex or None}">
     <xi:include href="dirlist_thead.html" />
     <tbody>
       <py:for each="idx, (reponame, repoinfo, repos, change, err, raw_href) in enumerate(repo.repositories)"

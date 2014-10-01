@@ -37,6 +37,7 @@ then
 		echo 'edit: /usr/share/pyshared/trac/wiki/web_ui.py look for wiki.css and comment it out'
 		echo 'edit: /usr/share/pyshared/trac/timeline/web_ui.py look for timeline.css and comment it out'
 		echo 'edit: /usr/share/pyshared/trac/search/web_ui.py look for search.css and comment it out'
+		echo 'edit: /usr/share/pyshared/trac/versioncontrol/web_ui/browser.py look for browser.css and comment it out, 2x'
 	
 	read -r -p "restart apache? [y/N] " response
 	
