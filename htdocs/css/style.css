@@ -158,3 +158,5 @@ body {
 	color: #888;
 	white-space: nowrap;
 }
+
+#content.browser table.dirlist tr th {white-space: nowrap;}
