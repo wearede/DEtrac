@@ -53,8 +53,9 @@
         <h1 py:with="repo_index=repo and repo.repositories;
                      path_links=None if repo_index else path_links">
           <span py:if="repo_index" class="pathentry">Default Repository</span>
-          <xi:include href="path_links.html" />
         </h1>
+
+	<xi:include href="path_links.html" />
 
         <div id="diffrev">
           <form action="${href.changeset()}" method="get">
