@@ -86,7 +86,12 @@
       <div id="footer" class="footer" xml:lang="en">
         <div class="container">
           <p class="text-muted pull-left" i18n:msg="version">Powered by <a href="${href.about()}"><strong>Trac ${trac.version}</strong></a> By <a href="http://www.edgewall.org/">Edgewall Software</a>.</p>
-          <p class="text-muted pull-right">${chrome.footer}</p>
+            <py:choose test="len(chrome.footer)">
+              <div class="pull-right">
+          	<py:when test="1">${chrome.footer}</py:when>
+		<py:otherwise><a href="http://weare.de.com" class="de-footer-logo">weare.de.com</a></py:otherwise>
+              </div>
+            </py:choose>
         </div>
       </div>
 

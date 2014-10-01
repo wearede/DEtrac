@@ -31,6 +31,21 @@ body {
 .footer .text-muted {
   margin: 20px 0;
 }
+.footer .de-footer-logo {
+  background: url("../de-logo-bw.png") no-repeat center right transparent;
+  display: block;
+  height: 45px;
+  width: 115px;
+  margin: 12px 0 3px 0;
+  background-size: contain;
+  line-height: 36px;
+  font-style: italic;
+  color: #000;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-size: 90%;
+  font-weight: 600;
+}
 
 /* Index
 -------------------------------------------------- */
