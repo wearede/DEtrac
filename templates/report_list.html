@@ -25,27 +25,26 @@
   <body>
     <div id="content" class="report">
 
-      <h1>Available Reports</h1>
-
-      <form id="prefs" method="get" action="">
-        <div>
+      <div class="page-header">
+	<h1 class="pull-left">Available Reports</h1>
+        <form id="prefs" method="get" action="" class="pull-right">
           <input id="trac-toggle-description" type="checkbox" />
           <label for="trac-toggle-description">Show Descriptions</label>
-        </div>
-      </form>
+        </form>
+	<div class="clearfix"></div>
+      </div>
 
       <div id="description" />
 
       <div py:choose="" class="reports">
         <div py:if="saved_query_href">
           <form method="get" action="${href.report()}">
-            <div class="inlinebuttons">
-
+            <div class="inlinebuttons pull-right">
               <input type="hidden" name="action" value="clear" />
-              <input type="submit" value="${captioned_button('x', _('Clear'))}" title="Forget last query" class="trac-delete" />
+              <button type="submit" title="Forget last query" class="trac-delete btn btn-default">Clear</button>
             </div>
           </form>
-          <h3><a href="$saved_query_href"><em>Return to Last Query</em></a></h3>
+          <h4><a href="$saved_query_href"><em>Return to Last Query</em></a></h4>
           <span class="foldable" />
           <div class="description">
             <p>Continue browsing through the current list of results,
@@ -54,7 +53,7 @@
         </div>
 
         <div py:if="query_href">
-          <h3><a href="$query_href"><em>Custom Query</em></a></h3>
+          <h4><a href="$query_href"><em>Custom Query</em></a></h4>
           <span class="foldable" />
           <div class="description">
             <p>Compose a new ticket query by selecting filters and columns to display.</p>
@@ -62,7 +61,8 @@
         </div>
 
         <py:when test="reports">
-          <h2>SQL reports and saved custom queries
+          <div class="page-header">
+           <h2>SQL reports and saved custom queries
             <span id="trac-sort-order" py:with="report_asc = asc if sort == 'report' else None;
                                                 title_asc = asc if sort == 'title' else None">
               Sort by:
@@ -73,32 +73,33 @@
                  class="${('desc', 'asc')[title_asc] if title_asc is not None else None}">
                 Title</a>
             </span>
-          </h2>
+           </h2>
+          </div>
 
-          <div py:for="id, title, description, can_edit, can_delete in reports">
-            <form py:if="can_delete" method="get" action="${href.report(id)}">
-              <div class="inlinebuttons">
+	 <ul class="list-group">
+          <li py:for="id, title, description, can_edit, can_delete in reports" class="list-group-item">
+            <div class="btn-group pull-right">
+              <form py:if="can_delete" method="get" action="${href.report(id)}" class="btn-group">
+                <button type="submit" title="Delete report" class="trac-delete btn btn-danger">Delete</button>
                 <input type="hidden" name="action" value="delete" />
-                <button type="submit" title="Delete report" class="trac-delete btn btn-danger">${captioned_button('–', _('Delete'))}</button>
-              </div>
-            </form>
-            <form py:if="can_edit" method="get" action="${href.report(id)}">
-              <div class="inlinebuttons">
+              </form>
+              <form py:if="can_edit" method="get" action="${href.report(id)}" class="btn-group">
                 <input type="hidden" name="action" value="edit" />
-                <button type="submit" title="Edit report" class="btn btn-warning">${captioned_button('✎', _('Edit'))}</button>
-              </div>
-            </form>
-            <h3><a title="View report" href="${href.report(id)}" py:choose="sort">
+                <button type="submit" title="Edit report" class="btn btn-warning">Edit</button>
+              </form>
+            </div>
+            <h4 class="list-group-item-heading"><a title="View report" href="${href.report(id)}" py:choose="sort">
               <py:when test="'title'">$title <em>{$id}</em></py:when>
               <py:otherwise><em>{$id}</em> $title</py:otherwise>
-              </a></h3>
+              </a></h4>
             <span class="foldable" />
-            <div py:if="description" class="description" xml:space="preserve">
+            <div py:if="description" class="description list-group-item-text" xml:space="preserve">
               ${wiki_to_html(context, description)}
             </div>
-          </div>
+          </li>
+         </ul>
         </py:when>
-        <p py:otherwise="">No reports available.</p>
+        <div py:otherwise="" class="alert alert-warning" role="alert">No reports available.</div>
       </div>
 
 
