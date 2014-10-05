@@ -40,13 +40,13 @@ then
 		echo 'edit: /usr/share/pyshared/trac/versioncontrol/web_ui/browser.py look for browser.css and comment it out, 2x'
 		echo 'edit: /usr/share/pyshared/trac/ticket/report.py look for report.css and comment it out'
 	
-	read -r -p "restart apache? [y/N] " response
+	read -r -p "reload apache? [y/N] " response
 	
 	if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]
 	then
-		service apache2 restart
+		service apache2 reload
 	else
-		echo 'you should restart apache for theme to take effect'
+		echo 'you should reload apache for theme to take effect'
 	fi
 
 	echo 'all [OK]'

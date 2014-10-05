@@ -79,15 +79,13 @@
             <form py:if="can_delete" method="get" action="${href.report(id)}">
               <div class="inlinebuttons">
                 <input type="hidden" name="action" value="delete" />
-                <input type="submit" value="${captioned_button('–', _('Delete'))}"
-                     title="Delete report" class="trac-delete" />
+                <button type="submit" title="Delete report" class="trac-delete btn btn-danger">${captioned_button('–', _('Delete'))}</button>
               </div>
             </form>
             <form py:if="can_edit" method="get" action="${href.report(id)}">
               <div class="inlinebuttons">
                 <input type="hidden" name="action" value="edit" />
-                <input type="submit" value="${captioned_button('✎', _('Edit'))}"
-                     title="Edit report" />
+                <button type="submit" title="Edit report" class="btn btn-warning">${captioned_button('✎', _('Edit'))}</button>
               </div>
             </form>
             <h3><a title="View report" href="${href.report(id)}" py:choose="sort">
@@ -108,15 +106,15 @@
         <form action="" method="get" id="create_report">
           <div>
             <input type="hidden" name="action" value="new" />
-            <input type="submit" value="${_('Create new report')}" />
+            <button type="submit" class="btn btn-default">${_('Create new report')}</button>
           </div>
         </form>
       </div>
 
-      <div id="help" i18n:msg="">
+      <p id="help" i18n:msg="">
         <strong>Note:</strong>
         See <a href="${href.wiki('TracReports')}">TracReports</a> for help on using and creating reports.
-      </div>
+      </p>
     </div>
   </body>
 </html>

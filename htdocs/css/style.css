@@ -160,3 +160,32 @@ body {
 }
 
 #content.browser table.dirlist tr th {white-space: nowrap;}
+
+/* Tickets
+-------------------------------------------------- */
+
+.tickets tr.color1-odd  { background: #fdc; border-color: #e88; color: #a22 }
+.tickets tr.color1-even { background: #fed; border-color: #e99; color: #a22 }
+.tickets tr.color2-odd  { background: #ffb; border-color: #eea; color: #880 }
+.tickets tr.color2-even { background: #ffd; border-color: #dd8; color: #880 }
+.tickets tr.color3-odd  { background: #fbfbfb; border-color: #ddd; color: #444 }
+.tickets tr.color3-even { background: #f6f6f6; border-color: #ccc; color: #333 }
+.tickets tr.color4-odd { background: #e7ffff; border-color: #cee; color: #099 }
+.tickets tr.color4-even { background: #dff; border-color: #bee; color: #099 }
+.tickets tr.color5-odd { background: #e7eeff; border-color: #cde; color: #469 }
+.tickets tr.color5-even { background: #dde7ff; border-color: #cde; color: #469 }
+.tickets tr.color6-odd  { background: #f0f0f0; border-color: #ddd; color: #888 }
+.tickets tr.color6-even { background: #f7f7f7; border-color: #ddd; color: #888 }
+.tickets tr.color6-odd a, .color6-even a { color: #b66 }
+
+.report .collapsed div,
+.report .collapsed span,
+.report .collapsed form {display: none;}
+
+
+
+
+
+
+
+
