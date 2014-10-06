@@ -131,9 +131,12 @@
       <div class="trac-topnav" py:if="(ticket.exists or preview_mode) and has_property_editor">
         <a href="#modify" title="Go to the ticket editor">Modify</a> &darr;
       </div>
-      <h1 py:if="not ticket.exists">
+
+      <div class="page-header">
+       <h1 py:if="not ticket.exists">
         Create New Ticket <span py:if="preview_mode and ticket.type" class="status">(${ticket.type})</span>
-      </h1>
+       </h1>
+      </div>
 
       <py:if test="ticket.exists">
         <xi:include href="ticket_box.html" py:with="preview_mode = change_preview.fields"/>
@@ -215,20 +218,18 @@ ${comment}</textarea>
                   <py:when test="ticket.exists">Change Properties</py:when>
                   <py:otherwise>Properties</py:otherwise>
               </legend>
-              <table>
+              <table class="table table-bordered">
                 <tr py:if="can_modify or can_create">
                   <th><label for="field-summary">Summary:</label></th>
                   <td class="fullrow" colspan="3">
-                    <input type="text" id="field-summary" name="field_summary"
-                           value="$ticket.summary" size="70" />
+                    <input type="text" id="field-summary" name="field_summary" value="$ticket.summary" size="70" class="form-control" />
                   </td>
                 </tr>
                 <py:if test="only_for_admin">
                   <tr>
                     <th><label for="field-reporter">Reporter:</label></th>
                     <td class="fullrow" colspan="3">
-                      <input type="text" id="field-reporter" name="field_reporter"
-                             value="${ticket.reporter}" size="70" />
+                      <input type="text" id="field-reporter" name="field_reporter" value="${ticket.reporter}" size="70" class="form-control" />
                     </td>
                   </tr>
                 </py:if>
@@ -240,9 +241,7 @@ ${comment}</textarea>
                         <label for="field-description" id="field-description-help" i18n:msg="">You may use
                           <a tabindex="42" href="${href.wiki('WikiFormatting')}">WikiFormatting</a> here.
                         </label>
-                        <textarea id="field-description" name="field_description"
-                                  class="wikitext trac-resizable" rows="10" cols="68">
-${ticket.description}</textarea>
+                        <textarea id="field-description" name="field_description" class="wikitext trac-resizable form-control" rows="10" cols="68">${ticket.description}</textarea>
                       </fieldset>
                     </td>
                   </tr>
@@ -260,7 +259,7 @@ ${ticket.description}</textarea>
                     <td class="col${idx + 1}" py:if="idx == 0 or not fullrow"
                         colspan="${3 if fullrow else None}">
                       <py:choose test="field.type" py:if="field">
-                        <select py:when="'select'" id="field-${field.name}" name="field_${field.name}">
+                        <select py:when="'select'" id="field-${field.name}" name="field_${field.name}" class="form-control">
                           <option py:if="field.optional"></option>
                           <option py:for="option in field.options"
                                   selected="${value == option or None}"
@@ -294,17 +293,17 @@ ${value}</textarea>
                               <em>${field.cc_entry}</em>
                               <input type="checkbox" id="field-cc" name="cc_update"
                                 title="This checkbox allows you to add or remove yourself from the CC list."
-                                checked="${field.cc_update}" />
+                                checked="${field.cc_update}" class="form-control" />
                             </span>
                             <!--! Cc: when TICKET_EDIT_CC is allowed -->
                             <span py:when="field.name == 'cc'">
                               <input  type="text" id="field-${field.name}"
                                 title="Space or comma delimited email addresses and usernames are accepted."
-                                name="field_${field.name}" value="${value}" />
+                                name="field_${field.name}" value="${value}" class="form-control" />
                             </span>
                             <!--! All the other text input fields -->
                             <input py:otherwise="" type="text" id="field-${field.name}"
-                              name="field_${field.name}" value="${value}" />
+                              name="field_${field.name}" value="${value}" class="form-control" />
                           </py:choose>
                         </py:otherwise>
                       </py:choose>
@@ -384,8 +383,8 @@ ${value}</textarea>
             <input type="hidden" name="view_time" value="${to_utimestamp(ticket['changetime'])}" />
             <input type="hidden" name="replyto" value="${replyto}" />
           </py:if>
-          <input type="submit" name="preview" value="${_('Preview')}" accesskey="r" />&nbsp;
-          <input type="submit" name="submit" value="${_('Submit changes') if ticket.exists else _('Create ticket')}" />
+          <button type="submit" name="preview" accesskey="r" class="btn btn-default">${_('Preview')}</button>
+          <button type="submit" name="submit" class="btn btn-success">${_('Submit changes') if ticket.exists else _('Create ticket')}</button>
         </div>
 
       </form>
@@ -393,11 +392,11 @@ ${value}</textarea>
       <xi:include href="ticket_box.html" py:if="not ticket.exists"
                   py:with="hide = not preview_mode; preview_mode = True"/>
 
-      <div id="help" i18n:msg="">
+      <p id="help" i18n:msg="">
         <strong>Note:</strong> See
         <a href="${href.wiki('TracTickets')}">TracTickets</a> for help on using
         tickets.
-      </div>
+      </p>
     </div>
   </body>
 </html>
