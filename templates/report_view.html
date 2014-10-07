@@ -23,13 +23,18 @@
        </h1>
       </div>
 
-      <form method="get" action="">
-        <div id="prefs">
+      <div py:if="description" id="description" xml:space="preserve" class="alert alert-info" role="alert">
+        ${wiki_to_html(context, description)}
+      </div>
+
+     <div class="row">
+      <form method="get" action="" class="col-md-8 text-left">
+        <div id="prefs" class="pull-left well">
           <div>
-            <label>
-              Max items per page
-              <input type="text" name="max" size="10" value="${max}" />
-            </label>
+            <div class="form-group">
+              <label>Max items per page</label>
+              <input type="text" name="max" size="10" value="${max}" class="form-control" />
+            </div>
             <fieldset id="reportfilters" py:if="show_args_form">
               <legend class="foldable">Arguments</legend>
               <table summary="Report arguments">
@@ -40,43 +45,40 @@
                   <tr>
                     <th scope="row"><label>${name}</label></th>
                     <td class="filter">
-                      <input type="text" name="${name}" value="${value or None}" size="42" />
+                      <input type="text" name="${name}" value="${value or None}" size="42" class="form-control" />
                     </td>
                   </tr>
                 </tbody>
               </table>
             </fieldset>
           </div>
-          <div class="buttons">
-            <input type="submit" value="${_('Update')}" />
-          </div>
+          <button type="submit" class="btn btn-default">${_('Update')}</button>
         </div>
       </form>
 
-      <div py:if="description" id="description" xml:space="preserve">
-        ${wiki_to_html(context, description)}
-      </div>
 
-      <div class="buttons">
-        <form py:if="'REPORT_MODIFY' in perm(report.resource)" action="" method="get">
+      <div class="buttons col-md-4 text-right">
+        <form py:if="'REPORT_MODIFY' in perm(report.resource)" action="" method="get" class="btn-group">
           <div>
             <input type="hidden" name="action" value="edit" />
             <button type="submit" accesskey="e" class="btn btn-warning">${_('Edit report')}</button>
           </div>
         </form>
-        <form py:if="'REPORT_CREATE' in perm(report.resource)" action="" method="get">
+        <form py:if="'REPORT_CREATE' in perm(report.resource)" action="" method="get" class="btn-group">
           <div>
             <input type="hidden" name="action" value="copy" />
             <button type="submit" class="btn btn-default">${_('Copy report')}</button>
           </div>
         </form>
-        <form py:if="'REPORT_DELETE' in perm(report.resource)" action="" method="get">
+        <form py:if="'REPORT_DELETE' in perm(report.resource)" action="" method="get" class="btn-group">
           <div>
             <input type="hidden" name="action" value="delete" />
             <button type="submit" class="btn btn-danger">${_('Delete report')}</button>
           </div>
         </form>
       </div>
+     </div>
+
       <h2 class="report-result" py:if="paginator.has_more_pages">
         Results <span class="numresults">(${paginator.displayed_items()})</span>
       </h2>

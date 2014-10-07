@@ -46,6 +46,10 @@ body {
   font-weight: 600;
 }
 
+/* Boostrap additional helpers
+-------------------------------------------------- */
+.table-borderless td, .table-borderless th, .table-borderless tr {border: none !important;}
+
 /* Index
 -------------------------------------------------- */
 #de-index, #de-index body {height: 100%;}
@@ -181,6 +185,8 @@ body {
 .report .collapsed div,
 .report .collapsed span,
 .report .collapsed form {display: none;}
+
+#prefs > div {display: inline-block;}
 
 
 

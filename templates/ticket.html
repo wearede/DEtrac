@@ -212,13 +212,17 @@ ${comment}</textarea>
           <h3 py:if="ticket.exists" class="foldable">Modify Ticket</h3>
           <div id="modify">
             <!--! Properties -->
-            <fieldset id="properties" py:if="can_modify or can_edit or can_create"
-                      py:with="fields = [f for f in fields if not f.skip]">
-              <legend py:choose="">
+
+              <div py:choose="" class="page-header">
                   <py:when test="ticket.exists">Change Properties</py:when>
                   <py:otherwise>Properties</py:otherwise>
-              </legend>
-              <table class="table table-bordered">
+              </div>
+
+            <div id="properties" class="row" py:if="can_modify or can_edit or can_create"
+                      py:with="fields = [f for f in fields if not f.skip]">
+
+              <div class="col-md-8">
+              <table class="table table-borderless">
                 <tr py:if="can_modify or can_create">
                   <th><label for="field-summary">Summary:</label></th>
                   <td class="fullrow" colspan="3">
@@ -246,7 +250,12 @@ ${comment}</textarea>
                     </td>
                   </tr>
                 </py:if>
-                <tr py:for="row in group(fields, 2, lambda f: f.type != 'textarea')"
+              </table>
+              </div>
+
+              <div class="col-md-4">
+              <table class="table table-borderless">
+                <tr py:for="row in group(fields, 1, lambda f: f.type != 'textarea')"
                     py:if="can_modify or can_create"
                     py:with="fullrow = len(row) == 1">
                   <py:for each="idx, field in enumerate(row)"
@@ -274,8 +283,7 @@ ${comment}</textarea>
                         </select>
                         <textarea py:when="'textarea'" id="field-${field.name}" name="field_${field.name}"
                                   cols="${field.width}" rows="${field.height}"
-                                  class="${'wikitext ' if field.format == 'wiki' else None}trac-resizable">
-${value}</textarea>
+                                  class="${'wikitext ' if field.format == 'wiki' else None}trac-resizable">${value}</textarea>
                         <span py:when="'checkbox'">
                           <input type="checkbox" id="field-${field.name}" name="field_${field.name}"
                                  checked="${value == '1' or None}" value="1" />
@@ -311,7 +319,8 @@ ${value}</textarea>
                   </py:for>
                 </tr>
               </table>
-            </fieldset>
+              </div>
+            </div>
 
             <!--! Workflow support -->
             <py:if test="ticket.exists"> <!--! do not display the actions for New tickets -->
