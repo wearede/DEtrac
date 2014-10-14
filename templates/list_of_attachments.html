@@ -43,14 +43,14 @@ Arguments:
       <py:when test="not compact">
         <h3 class="${'foldable' if foldable else None}">Attachments <span class="trac-count">(${len(alist.attachments)})</span></h3>
         <div py:if="alist.attachments or alist.can_create" class="attachments">
-          <dl py:if="alist.attachments" class="attachments">
+          <ul py:if="alist.attachments" class="attachments list-group">
             <py:for each="attachment in alist.attachments">
-              <dt>${show_one_attachment(attachment)}</dt>
-              <dd py:if="attachment.description">
-                ${wiki_to_oneliner(context, attachment.description)}
-              </dd>
+             <li class="list-group-item">
+               <h5 class="list-group-item-heading">${show_one_attachment(attachment)}</h5>
+               <py:if test="attachment.description"><p class="list-group-item-text">${wiki_to_oneliner(context, attachment.description)}</p></py:if>
+             </li>
             </py:for>
-          </dl>
+          </ul>
           <p py:if="alist.attachments and alist.download_href">
             Download all attachments as: <a rel="nofollow" href="$alist.download_href">.zip</a>
           </p>
