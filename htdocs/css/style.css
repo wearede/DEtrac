@@ -188,10 +188,36 @@ body {
 
 #prefs > div {display: inline-block;}
 
+/* Ticket
+-------------------------------------------------- */
 
+.ticket .faux-avatar {
+	background-color: #7CCDE0;
+	border-radius: 100px;
+	font-size: 1.5em;
+	font-style: italic;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	padding-top: 31px;
+	color: #fff;
+	margin-top: -10px;
+}
 
+.ticket .trac-content {
+	background-color: #D5EAED;
+	border: 1px solid #1DA132;
+}
 
+.ticket .collapsed .attachments {display: none;}
 
+.ticket .ticket-state .faux-avatar {display: none;}
+.ticket .user-comment {
+	min-height: 20px;
+	padding: 10px;
+	margin-bottom: 20px;
+	border-bottom: 5px solid #F4F4F4;
+}
 
 
 

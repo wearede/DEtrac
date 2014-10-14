@@ -30,7 +30,9 @@ Arguments:
   <py:def function="commentref(prefix, cnum, cls=None)">
     <a href="#comment:$cnum" class="$cls">$prefix$cnum</a>
   </py:def>
-  <h3 class="change">
+ <div class="pull-left faux-avatar" href="#">${authorinfo(change.author)}</div>
+ <div class="media-body">
+  <h4 class="change media-heading">
     <span class="threading"
           py:with="change_replies = replies.get(str(cnum), []) if 'cnum' in change else []">
       <span py:if="'cnum' in change" id="comment:$cnum" class="cnum">${commentref('comment:', cnum)}</span>
@@ -57,19 +59,19 @@ Arguments:
       </py:otherwise>
     </py:choose>
     <span py:if="preview or show_editor" class="trac-loading"/>
-  </h3>
-  <div py:if="show_buttons" class="trac-ticket-buttons">
-    <form py:if="'cnum' in change and can_edit_comment" method="get" action="#comment:${cnum}">
+  </h4>
+  <div py:if="show_buttons" class="trac-ticket-buttons btn-toolbar pull-right">
+    <form py:if="'cnum' in change and can_edit_comment" method="get" action="#comment:${cnum}" class="btn-group">
       <div class="inlinebuttons">
         <input type="hidden" name="cnum_edit" value="${cnum}"/>
-        <input type="submit" value="${captioned_button('✎', _('Edit'))}" title="${_('Edit comment %(cnum)s', cnum=cnum)}" />
+        <button type="submit" title="${_('Edit comment %(cnum)s', cnum=cnum)}" class="btn btn-warning">${captioned_button('✎', _('Edit'))}</button>
       </div>
     </form>
     <form py:if="'cnum' in change and can_append" id="reply-to-comment-${cnum}"
-          method="get" action="#comment">
+          method="get" action="#comment" class="btn-group">
       <div class="inlinebuttons">
         <input type="hidden" name="replyto" value="${cnum}"/>
-        <input type="submit" value="${captioned_button('↳', _('Reply'))}" title="${_('Reply to comment %(cnum)s', cnum=cnum)}" />
+        <button type="submit" title="${_('Reply to comment %(cnum)s', cnum=cnum)}" class="btn btn-success">${captioned_button('↳', _('Reply'))}</button>
       </div>
     </form>
   </div>
@@ -155,4 +157,5 @@ ${edited_comment if edited_comment is not None else change.comment}</textarea>
                               version=comment_version)}">diff</a>)
     </py:if>
   </div>
+ </div>
 </html>

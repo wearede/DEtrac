@@ -171,7 +171,7 @@
 
           <ul id="changelog" class="media-list">
             <py:for each="change in changes">
-              <li class="change${' trac-new' if change.date > start_time and 'attachment' not in change.fields else None} media"
+              <li class="change${' trac-new' if change.date > start_time and 'attachment' not in change.fields else None} media ${'user-comment' if 'cnum' in change else 'ticket-state well'}"
                    id="${'trac-change-%d-%d' % (change.cnum, to_utimestamp(change.date)) if 'cnum' in change else None}">
                 <xi:include href="ticket_change.html"/>
               </li>
