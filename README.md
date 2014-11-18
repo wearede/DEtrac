@@ -3,4 +3,8 @@ DEtrac
 
 Attempt at modernizing trac interface using latest bootstrap.
 
-Project not usable at the moment. Please wait till I wrap it up.
+Project not usable at the moment (under development).
+
+You are welcome to join in!
+
+
