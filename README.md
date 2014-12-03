@@ -1,10 +1,9 @@
 DEtrac
 ======
 
-Attempt at modernizing trac interface using latest bootstrap.
+Attempt at modernizing trac 1.0.1 interface using latest bootstrap.
 
-Project not usable at the moment (under development).
+This is still in its infancy, rought around the edges, but still usable.
 
-You are welcome to join in!
-
+Install script assumes quite a lot of things, review it before running.
 
