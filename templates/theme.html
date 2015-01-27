@@ -35,8 +35,7 @@
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">${chrome['nav']['metanav'][0]['label']} <span class="caret"></span></a>
-                <?python chrome['nav']['metanav'].pop(0) ?>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
                 <ul py:if="chrome.nav['metanav']" class="dropdown-menu">
                   <li py:for="idx, item in  enumerate(chrome.nav['metanav'])"
                   class="${classes(first_last(idx, chrome.nav['metanav']), active=item.active)}">${item.label}</li>
