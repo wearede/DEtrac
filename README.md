@@ -1,4 +1,4 @@
-DEtrac = Trac + Boostrap 3.3.2
+DEtrac = Trac + Boostrap
 ======
 
 Attempt at modernizing trac 1.0.1 interface using latest bootstrap.
