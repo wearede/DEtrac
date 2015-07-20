@@ -31,15 +31,18 @@ then
 	ln -s /usr/share/pyshared/trac/templates/ /usr/lib/python2.7/dist-packages/trac/templates
 
 	echo 'templates symlink created at /usr/lib/python2.7/dist-packages/trac'
-	echo 'install complete [ok]'
 
-		echo 'edit: /usr/share/pyshared/trac/web/chrome.py look for trac.css and comment it out'
-		echo 'edit: /usr/share/pyshared/trac/wiki/web_ui.py look for wiki.css and comment it out'
-		echo 'edit: /usr/share/pyshared/trac/timeline/web_ui.py look for timeline.css and comment it out'
-		echo 'edit: /usr/share/pyshared/trac/search/web_ui.py look for search.css and comment it out'
-		echo 'edit: /usr/share/pyshared/trac/versioncontrol/web_ui/browser.py look for browser.css and comment it out, 2x'
-		echo 'edit: /usr/share/pyshared/trac/ticket/report.py look for report.css and comment it out'
-		echo 'edit: /usr/share/pyshared/trac/ticket/web_ui.py look for ticket.css and comment it out 2x'
+	sed -i.backup -e '/trac.css/s/^/#/' /usr/share/pyshared/trac/web/chrome.py
+	sed -i.backup -e '/wiki.css/s/^/#/' /usr/share/pyshared/trac/wiki/web_ui.py
+	sed -i.backup -e '/timeline.css/s/^/#/' /usr/share/pyshared/trac/timeline/web_ui.py
+	sed -i.backup -e '/search.css/s/^/#/' /usr/share/pyshared/trac/search/web_ui.py
+	sed -i.backup -e '/browser.css/s/^/#/' /usr/share/pyshared/trac/versioncontrol/web_ui/browser.py
+	sed -i.backup -e '/report.css/s/^/#/' /usr/share/pyshared/trac/ticket/report.py
+	sed -i.backup -e '/ticket.css/s/^/#/' /usr/share/pyshared/trac/ticket/web_ui.py
+
+	echo 'edits made to files in /usr/share/pyshared/trac. Originals saved with .backup extension.'
+
+	echo 'install complete [ok]'
 	
 	read -r -p "reload apache? [y/N] " response
 	
